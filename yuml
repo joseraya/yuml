@@ -51,7 +51,7 @@ class Request():
         if not self.body:
             self.loadbody()
         
-        opts = self.opts.style + (";scale:" + str(self.opts.scale) if self.opts.scale else '')
+        opts = self.opts.style + (";scale:" + str(self.opts.scale) if self.opts.scale else '') + (";dir:" + str(self.opts.direction) if self.opts.direction else '')
         url = u"%s/%s/%s/%s.%s" % (self.API_BASE, opts, self.opts.type, urllib.quote(u', '.join(self.body).encode('utf8')), self.opts.fmt)
         
         self.log('Requesting %s' % url)
@@ -75,6 +75,7 @@ if __name__ == '__main__':
     op.add_option("-f", "--format", dest="fmt", help="force format FMT", metavar="FMT", default="png", choices=['png', 'pdf', 'jpg'])
     op.add_option("-t", "--type", dest="type", help="draw a TYPE diagram", metavar="TYPE", default="class", choices=['class', 'activity', 'usecase'])
     op.add_option("-s", "--style", dest="style", help="use style STY", metavar="STY", default="scruffy", choices=['scruffy', 'boring', 'plain'])
+    op.add_option("-d", "--direction", dest="direction", help="use direction DIR", metavar="DIR", default="LR", choices=['LR', 'TB', 'RL'])
     op.add_option("--scale", dest="scale", help="scale output to percentage", metavar="PERCENT", type="int")
     op.add_option("-v", "--verbose", dest="v", help="print some debug info", action="store_true", default=False)
 
